@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rute Aman - RAFA</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #E6F0FF, #FFFFFF);
+      margin: 0;
+      padding: 1.5em;
+      color: #333;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background-color: #ffffff;
+      border-radius: 15px;
+      padding: 2em;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #1A4D7A;
+      margin-bottom: 1em;
+    }
+
+    iframe {
+      width: 100%;
+      height: 400px;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .info-box, .cuaca-widget {
+      margin-top: 1.5em;
+      padding: 1em;
+      border-radius: 10px;
+      background-color: #FFF6E5;
+    }
+
+    .info-box h3 {
+      margin-top: 0;
+      color: #8B5E3C;
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-top: 2em;
+      text-decoration: none;
+      background-color: #1A4D7A;
+      color: white;
+      padding: 0.7em 1.5em;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+
+    .back-btn:hover {
+      background-color: #133654;
+    }
+
+    .cuaca-widget {
+      text-align: center;
+      margin-top: 2em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🛣️ Rute Aman Menuju Sekolah</h1>
+
+    <p>Halaman ini menampilkan rute aman di kota Samarinda. Gunakan peta dan peringatan cuaca untuk memilih jalur terbaik.</p>
+
+    <!-- Peta Google Maps -->
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48624.04901651333!2d117.09113201858635!3d-0.5013803398369301!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2df67f9e3a5b4857%3A0xd9d9678dade6eae3!2sSamarinda%2C%20Samarinda%20City%2C%20East%20Kalimantan!5e1!3m2!1sen!2sid!4v1752191409434!5m2!1sen!2sid" 
+      allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+
+    <!-- Widget Cuaca -->
+    <div class="cuaca-widget">
+      <a class="weatherwidget-io" 
+         href="https://forecast7.com/en/n0d50117d13/samarinda-city/" 
+         data-label_1="SAMARINDA" 
+         data-label_2="CUACA HARI INI" 
+         data-theme="beige">SAMARINDA WEATHER</a>
+    </div>
+
+    <!-- Daftar area rawan -->
+    <div class="info-box">
+      <h3>⚠️ Area Rawan Banjir dan Macet</h3>
+      <ul>
+        <li><strong>Jalan DI Panjaitan:</strong> Rawan banjir saat hujan deras.</li>
+        <li><strong>Jalan Gatot Subroto:</strong> Sering macet jam berangkat & pulang sekolah.</li>
+        <li><strong>Jalan PM Noor:</strong> Sering tergenang dan padat kendaraan.</li>
+        <li><strong>Jalan HM Rifaddin:</strong> Jalur sempit dan berliku, rawan licin.</li>
+      </ul>
+      <p style="margin-top: 1em;">Jika terpaksa melewati jalan tersebut saat kondisi cuaca buruk, pelajar dianjurkan untuk <strong>mengurangi kecepatan</strong>, menyalakan <strong>lampu kendaraan</strong>, dan <strong>hindari mengerem mendadak</strong>.</p>
+    </div>
+
+    <a href="index.html" class="back-btn">⬅️ Kembali ke Beranda</a>
+  </div>
+
+  <!-- Script cuaca -->
+  <script>
+    !function(d,s,id){
+      var js,fjs=d.getElementsByTagName(s)[0];
+      if(!d.getElementById(id)){
+        js=d.createElement(s);js.id=id;
+        js.src='https://weatherwidget.io/js/widget.min.js';
+        fjs.parentNode.insertBefore(js,fjs);
+      }
+    }(document,'script','weatherwidget-io-js');
+  </script>
+</body>
+</html>

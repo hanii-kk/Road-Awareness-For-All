@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laporan Kondisi Jalan - RAFA</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #EADAC0, #F6F1E7);
+      margin: 0;
+      padding: 1.5em;
+      color: #333;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background-color: #ffffff;
+      border-radius: 15px;
+      padding: 2em;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #4B3F2F;
+      margin-bottom: 1em;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+    }
+
+    input, select, textarea, button {
+      padding: 0.8em;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    button {
+      background-color: #C9A368;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #a8834f;
+    }
+
+    .laporan-box {
+      margin-top: 2em;
+    }
+
+    .laporan-item {
+      background-color: #F6F1E7;
+      border-left: 6px solid #D4B48C;
+      padding: 1em;
+      border-radius: 10px;
+      margin-bottom: 1em;
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-top: 2em;
+      text-decoration: none;
+      background-color: #4B3F2F;
+      color: white;
+      padding: 0.7em 1.5em;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+
+    .back-btn:hover {
+      background-color: #32291f;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📢 Laporan Kondisi Jalan</h1>
+
+    <form id="laporForm">
+      <input type="text" name="nama" placeholder="Nama Pelapor" required>
+      <input type="text" name="lokasi" placeholder="Lokasi Kejadian" required>
+      <select name="jenis" required>
+        <option value="">Pilih Jenis Laporan</option>
+        <option value="Banjir">Banjir</option>
+        <option value="Jalan Rusak">Jalan Rusak</option>
+        <option value="Kecelakaan">Kecelakaan</option>
+        <option value="Kemacetan">Kemacetan</option>
+        <option value="Rintangan">Rintangan di Jalan</option>
+        <option value="Lainnya">Lainnya</option>
+      </select>
+      <textarea name="keterangan" rows="4" placeholder="Keterangan Tambahan..."></textarea>
+      <button type="submit">Kirim Laporan</button>
+    </form>
+
+    <div class="laporan-box">
+      <h2>📝 3 Laporan Terbaru</h2>
+      <div id="laporanList">Belum ada laporan.</div>
+    </div>
+
+    <a href="index.html" class="back-btn">⬅️ Kembali ke Beranda</a>
+  </div>
+
+  <script>
+    const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRrDuHFEXwmEQ33UN6tmTTZR2AiuvGf13wDH2Ru8istC-bGBnxxFUFG9meK01HZKfAurM1-qj0zBg9X/pub?output=csv';
+
+    const form = document.getElementById('laporForm');
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const params = new URLSearchParams();
+      for (const pair of formData) {
+        params.append(pair[0], pair[1]);
+      }
+
+      const response = await fetch('https://script.google.com/macros/s/AKfycbz9fNbsFyeBOe-996rP0MZ3kxlbdV3fXlL-59oAEYmB-93lr5KG0jvnfbIPGDmZ7iFf/exec', {
+        method: 'POST',
+        body: params
+      });
+
+      const text = await response.text();
+      alert(text);
+      form.reset();
+      loadLaporan();
+    });
+
+    async function loadLaporan() {
+      try {
+        const res = await fetch(sheetURL);
+        const data = await res.text();
+        const rows = data.trim().split('\n').slice(-3).reverse();
+        const laporanList = document.getElementById('laporanList');
+        laporanList.innerHTML = '';
+        rows.forEach(row => {
+          const cols = row.split(',');
+          const html = `
+            <div class="laporan-item">
+              <strong>${cols[1]}</strong> melaporkan <strong>${cols[3]}</strong> di <strong>${cols[2]}</strong><br>
+              <em>${cols[4]}</em>
+            </div>`;
+          laporanList.innerHTML += html;
+        });
+      } catch (error) {
+        console.error('Gagal memuat laporan:', error);
+      }
+    }
+
+    loadLaporan();
+  </script>
+</body>
+</html>

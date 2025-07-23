@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cek Motor - RAFA</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #DCEAD8, #C6D8C0);
+      margin: 0;
+      padding: 2em;
+      color: #333;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background-color: #ffffff;
+      border-radius: 15px;
+      padding: 2em;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #2F5D62;
+      margin-bottom: 1em;
+    }
+
+    p, ul {
+      font-size: 1em;
+      line-height: 1.6;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    li {
+      margin-bottom: 1em;
+    }
+
+    label {
+      font-size: 1em;
+    }
+
+    .btns {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2em;
+      flex-wrap: wrap;
+      gap: 1em;
+    }
+
+    button, .back-btn {
+      flex: 1;
+      padding: 0.8em;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .save-btn { background-color: #4CAF50; color: white; }
+    .reset-btn { background-color: #f0ad4e; color: white; }
+    .back-btn { background-color: #5D6D7E; color: white; text-align: center; text-decoration: none; line-height: 2.5em; }
+
+    .popup {
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      border: 2px solid #4CAF50;
+      padding: 1.5em 2em;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      z-index: 9999;
+      display: none;
+      max-width: 90%;
+      text-align: center;
+      animation: none;
+    }
+
+    .warning {
+      border-color: #f1c40f;
+      background-color: #fff8e1;
+      animation: pulse 0.5s infinite alternate;
+    }
+
+    @keyframes pulse {
+      from { transform: translateX(-50%) scale(1); }
+      to { transform: translateX(-50%) scale(1.05); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🛵 Cek Motor Sebelum Berangkat</h1>
+    <p>Centang semua item di bawah ini sebelum berkendara untuk memastikan motor kamu aman!</p>
+
+    <ul id="checklist">
+      <li><label><input type="checkbox"> Angin Ban</label></li>
+      <li><label><input type="checkbox"> Bensin dan Rem</label></li>
+      <li><label><input type="checkbox"> Lampu & Klakson</label></li>
+      <li><label><input type="checkbox"> Dasbor & Spion</label></li>
+      <li><label><input type="checkbox"> Rantai atau Oli Mesin</label></li>
+    </ul>
+
+    <div class="btns">
+      <button class="save-btn" onclick="simpanCeklis()">Simpan</button>
+      <button class="reset-btn" onclick="resetCeklis()">Reset</button>
+      <a href="index.html" class="back-btn">⬅️ Beranda</a>
+    </div>
+  </div>
+
+  <div class="container" style="margin-top: 2em;">
+    <h2>🔍 Mengapa Cek Motor Itu Penting?</h2>
+    <p>Menurut data Dinas Perhubungan Kota Samarinda, pada tahun 2024 tercatat lebih dari <strong>750 kasus kecelakaan lalu lintas</strong> yang melibatkan pelajar, dan sebagian besar disebabkan oleh kondisi motor yang tidak layak pakai.</p>
+    <p>Untuk itu, yuk biasakan lakukan pengecekan ABCDE berikut sebelum berkendara:</p>
+    <ul>
+      <li><strong>A - Angin Ban</strong>: Ban kempes bikin motor tidak stabil dan boros bensin.</li>
+      <li><strong>B - Bensin & Rem</strong>: Jangan sampai mogok atau rem blong di jalan!</li>
+      <li><strong>C - Cahaya & Klakson</strong>: Untuk memberi sinyal dan tetap terlihat saat hujan atau malam hari.</li>
+      <li><strong>D - Dasbor & Spion</strong>: Pastikan semua indikator normal dan spion tidak rusak.</li>
+      <li><strong>E - Ekstra (Rantai, Oli, dll)</strong>: Cegah motor mogok dengan perawatan rutin.</li>
+    </ul>
+    <p>Dengan cek rutin, kamu menjaga keselamatan dirimu dan pengguna jalan lainnya. Yuk jadi pelajar pelopor keselamatan!</p>
+  </div>
+
+  <div id="popup" class="popup"></div>
+
+  <script>
+    const popup = document.getElementById("popup");
+
+    function showPopup(pesan, warna = '#4CAF50', isWarning = false) {
+      popup.innerHTML = pesan;
+      popup.style.borderColor = warna;
+      popup.style.backgroundColor = isWarning ? '#fff8e1' : '#ffffff';
+      popup.className = isWarning ? 'popup warning' : 'popup';
+      popup.style.display = "block";
+      setTimeout(() => popup.style.display = "none", 3000);
+    }
+
+    function simpanCeklis() {
+      const checkboxes = document.querySelectorAll("#checklist input[type='checkbox']");
+      const semuaDiceklis = Array.from(checkboxes).every(cb => cb.checked);
+
+      if (semuaDiceklis) {
+        showPopup("✅ Motor kamu sudah aman, selamat berkendara dan selalu berhati-hati yaa!");
+      } else {
+        showPopup("⚠️ Motor kamu belum sepenuhnya aman. Cek kembali sebelum berangkat!", '#f1c40f', true);
+      }
+    }
+
+    function resetCeklis() {
+      const checkboxes = document.querySelectorAll("#checklist input[type='checkbox']");
+      checkboxes.forEach(cb => cb.checked = false);
+    }
+  </script>
+</body>
+</html>
