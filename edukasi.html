@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Edukasi Keselamatan - RAFA</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #f0ebe1, #cbe8dd);
+      color: #333;
+      margin: 0;
+      padding: 2em;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #37474F;
+    }
+    .section {
+      background: #ffffffcc;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #b0bec5;
+      padding: 1.5em;
+      margin-bottom: 2em;
+    }
+    ul {
+      padding-left: 1.2em;
+    }
+    .quiz {
+      margin-top: 2em;
+    }
+    .quiz input {
+      margin-right: 0.5em;
+    }
+    button {
+      margin-top: 1em;
+      background-color: #8bc6b9;
+      color: #fff;
+      padding: 0.6em 1.2em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #6da89d;
+    }
+    .popup {
+      position: fixed;
+      bottom: 1.5em;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ffe0b2;
+      padding: 1em 2em;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+      font-weight: bold;
+      display: none;
+    }
+    a.back {
+      display: inline-block;
+      margin-top: 2em;
+      text-decoration: none;
+      padding: 0.5em 1em;
+      background-color: #a5d6a7;
+      color: #333;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+    a.back:hover {
+      background-color: #81c784;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Edukasi Keselamatan Berkendara</h1>
+
+  <div class="section">
+    <h2>1. Pentingnya Helm</h2>
+    <p>Helm melindungi kepala dari benturan saat kecelakaan. Gunakan helm SNI setiap berkendara, bahkan jarak dekat!</p>
+  </div>
+
+  <div class="section">
+    <h2>2. SIM dan STNK Wajib</h2>
+    <p>SIM bukti legal kamu boleh berkendara, STNK bukti motor kamu sah. Kalau gak punya, bisa kena tilang!</p>
+  </div>
+
+  <div class="section">
+    <h2>3. Etika Berkendara</h2>
+    <p>Jaga sopan santun di jalan: jangan serobot, jangan klakson sembarangan, dan saling menghormati pengguna jalan lain.</p>
+  </div>
+
+  <div class="section">
+    <h2>4. Warna dan Arti Rambu</h2>
+    <ul>
+      <li>🔴 Merah: Larangan (contoh: dilarang masuk)</li>
+      <li>🟡 Kuning: Peringatan (contoh: tikungan tajam)</li>
+      <li>🔵 Biru: Perintah (contoh: wajib lurus)</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>5. Pakaian Cerah di Malam Hari</h2>
+    <p>Malam hari itu gelap. Pakailah baju terang & nyalakan lampu agar terlihat dan terhindar dari bahaya!</p>
+  </div>
+
+  <div class="quiz section">
+    <h2>🎯 Kuis Cepat</h2>
+    <p><strong>1.</strong> Apa warna rambu yang berarti larangan?</p>
+    <input type="radio" name="q1" value="Benar"> Merah<br>
+    <input type="radio" name="q1" value="Salah"> Kuning<br>
+
+    <p><strong>2.</strong> SIM dan STNK itu tidak wajib dibawa saat berkendara. (Benar/Salah)</p>
+    <input type="radio" name="q2" value="Salah"> Benar<br>
+    <input type="radio" name="q2" value="Benar"> Salah<br>
+
+    <p><strong>3.</strong> Helm hanya wajib kalau berkendara jauh. (Benar/Salah)</p>
+    <input type="radio" name="q3" value="Salah"> Benar<br>
+    <input type="radio" name="q3" value="Benar"> Salah<br>
+
+    <p><strong>4.</strong> Apa warna rambu untuk perintah?</p>
+    <input type="radio" name="q4" value="Benar"> Biru<br>
+    <input type="radio" name="q4" value="Salah"> Kuning<br>
+
+    <p><strong>5.</strong> Saat malam, disarankan memakai pakaian gelap agar tidak silau. (Benar/Salah)</p>
+    <input type="radio" name="q5" value="Salah"> Benar<br>
+    <input type="radio" name="q5" value="Benar"> Salah<br>
+
+    <button onclick="checkAnswers()">Cek Jawaban</button>
+  </div>
+
+  <div class="popup" id="popup">
+    Keselamatan itu penting! Jangan remehkan hal kecil saat di jalan 🚦💛
+  </div>
+
+  <div class="section" style="text-align:center;">
+    <a href="index.html" class="back">⬅️ Kembali ke Beranda</a>
+  </div>
+
+  <script>
+    function checkAnswers() {
+      let correct = 0;
+      const total = 5;
+      for (let i = 1; i <= total; i++) {
+        const selected = document.querySelector('input[name="q' + i + '"]:checked');
+        if (selected && selected.value === "Benar") correct++;
+      }
+      if (correct === total) {
+        alert("🎉 Semua jawaban benar! Hebat! 😊");
+      } else {
+        alert("❌ Beberapa jawaban masih salah. Coba lagi ya! 😔");
+      }
+      document.getElementById("popup").style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
